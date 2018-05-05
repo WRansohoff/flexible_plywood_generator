@@ -30,11 +30,17 @@ col_h_m = (float(height) / float(num_columns_m)) - sep_h
 # First, open the output file.
 svg = open(filename, 'w')
 # Write the SVG file declaration, to span the full W/H.
-svg.write("<svg width=\"%dmm\" height=\"%dmm\" viewBox=\"0 0 %d %d\" xmlns=\"http://www.w3.org/2000/svg\">\n"%(width, height, width, height))
+svg.write(("<svg width=\"%dmm\" height=\"%dmm\" "
+           "viewBox=\"0 0 %d %d\" "
+           "xmlns=\"http://www.w3.org/2000/svg\">\n"
+           %(width, height, width, height)))
 # Draw a 'group' tag to style the following shapes.
-svg.write("  <g id=\"outlines\" fill=\"none\" stroke=\"black\" stroke-width=\"0.1\" stroke-linejoing=\"miter\">\n")
+svg.write(("  <g id=\"outlines\" fill=\"none\" stroke=\"black\" "
+           "stroke-width=\"0.1\" stroke-linejoing=\"miter\">\n"))
 # Draw a rectangle covering the whole width.
-svg.write("    <rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" />\n"%(width, height))
+svg.write(("    <rect x=\"0\" y=\"0\" "
+           "width=\"%d\" height=\"%d\" />\n"
+           %(width, height)))
 # Draw the rectangles for each column.
 extra_column = True
 cur_x = 2.0
@@ -43,10 +49,14 @@ while not done:
   # Draw N or N+1 rectangles
   if (extra_column):
     for i in range(0, num_columns_l):
-      svg.write("    <rect x=\"%d\" y=\"%.2f\" width=\"2.0\" height=\"%.2f\" />\n"%(cur_x, (i*(col_h_l+sep_h)), col_h_l))
+      svg.write(("    <rect x=\"%d\" y=\"%.2f\" "
+                 "width=\"2.0\" height=\"%.2f\" />\n"
+                 %(cur_x, (i*(col_h_l+sep_h)), col_h_l)))
   else:
     for i in range(0, num_columns_m):
-      svg.write("    <rect x=\"%d\" y=\"%.2f\" width=\"2.0\" height=\"%.2f\" />\n"%(cur_x, (2.0 + i*(col_h_m+sep_h)), col_h_m))
+      svg.write(("    <rect x=\"%d\" y=\"%.2f\" "
+                 "width=\"2.0\" height=\"%.2f\" />\n"
+                 %(cur_x, (2.0 + i*(col_h_m+sep_h)), col_h_m)))
   extra_column = not extra_column
   cur_x += 4.0
   # Check if we're done.
