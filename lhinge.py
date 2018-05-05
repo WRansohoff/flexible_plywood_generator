@@ -20,10 +20,11 @@ filename    = sys.argv[3]
 # vertical space is no more than 40mm in length.
 # (Also subtract 4mm for the top/bottom 'row')
 # So, (H-4)/N <= 42, which means solve N = (H-4)/42 and round up.
+sep_h = 2.0
 num_columns_l = int(math.ceil(float(height-2) / 42.0))
 num_columns_m = int(num_columns_l + 1)
-col_h_l = (float(height-2) / float(num_columns_l)) - 2.0
-col_h_m = (float(height) / float(num_columns_m)) - 2.0
+col_h_l = (float(height) / float(num_columns_l)) - sep_h
+col_h_m = (float(height) / float(num_columns_m)) - sep_h
 
 # Now, just draw the appropriate rectangles in an SVG file.
 # First, open the output file.
@@ -42,10 +43,10 @@ while not done:
   # Draw N or N+1 rectangles
   if (extra_column):
     for i in range(0, num_columns_l):
-      svg.write("    <rect x=\"%d\" y=\"%.2f\" width=\"2.0\" height=\"%.2f\" />\n"%(cur_x, (i*(col_h_l+2.0)), col_h_l))
+      svg.write("    <rect x=\"%d\" y=\"%.2f\" width=\"2.0\" height=\"%.2f\" />\n"%(cur_x, (i*(col_h_l+sep_h)), col_h_l))
   else:
     for i in range(0, num_columns_m):
-      svg.write("    <rect x=\"%d\" y=\"%.2f\" width=\"2.0\" height=\"%.2f\" />\n"%(cur_x, (2.0 + i*(col_h_m+2.0)), col_h_m))
+      svg.write("    <rect x=\"%d\" y=\"%.2f\" width=\"2.0\" height=\"%.2f\" />\n"%(cur_x, (2.0 + i*(col_h_m+sep_h)), col_h_m))
   extra_column = not extra_column
   cur_x += 4.0
   # Check if we're done.
